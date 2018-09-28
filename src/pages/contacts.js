@@ -1,10 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Body from "./components/body"
 
-const Contacts = ({ match }) => (
+const Contacts = () => (
+  <Body title={"Contact me"}>
     <div>
-      <h3>Contacts</h3>
+      <h2>----------------</h2>
     </div>
+  </Body>
   );
 
   export default Contacts;

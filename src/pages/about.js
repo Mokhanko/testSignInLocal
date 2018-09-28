@@ -1,10 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Body from "./components/body"
 
-const About = ({match}) => (
-    <div>
-      <h2>About</h2>
-    </div>
+const About = () => (
+    <Body title={"About Me"}>
+      <div>
+        <h2>---------</h2>
+      </div>
+    </Body>
   );
   
   export default About;

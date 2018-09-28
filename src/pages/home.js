@@ -1,19 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
-const divStyle = {
-    color: 'blue',
-    border: '1px solid red',
-  };
+import Body from "./components/body"
+import './app.css'
 
 const Home = () => (
-    <div className="container wrapper">
-        <div className="row">
-            <div className="col-lg-6" style={divStyle}>
-                <h3>Old Boy</h3>
-            </div>
-         </div>
-    </div>
+    <Body title={"Home office"}>
+      <div className="header">
+        <h2 className="text-center">No pain no game!</h2>
+      </div>
+    </Body>
   );
 
   export default Home;
