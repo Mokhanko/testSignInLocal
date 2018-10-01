@@ -4,24 +4,7 @@ import './styles.css'
 import portfolio from './images/portfolio.jpg';
 
 const Header = () => {
-  // <div class="header">
-  //   <div className="row">
-  //     <div className="col-md-6 col-md-offset-6">
-  //       <nav class="navbar navbar-custom">
-  //         <div class="container-fluid navbar-header">
-  //           <div id="navbar" class="navbar-header" >
-  //             <ul class="nav navbar-nav menu header">
-  //               <li class="active logo"><Link to="/">Portfolio</Link></li>
-  //               <li class="active"><Link to="/">Home</Link></li>
-  //               <li><Link to="/about">About me</Link></li>
-  //               <li><Link to="/contacts">Contacts</Link></li>
-  //             </ul>
-  //           </div>
-  //         </div>
-  //       </nav>
-  //     </div>
-  //   </div>
-  // </div>
+
 
   return (
     <nav className="navbar navbar-default">
