@@ -24,3 +24,11 @@
     height:70%;
     border:3px solid black;
 }
+
+.formAbout{
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 10px;
+    width:50%;
+    margin: 0 auto;
+}
