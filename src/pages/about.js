@@ -83,10 +83,26 @@ class About extends React.Component {
       default:
         break;
     }
+<<<<<<< HEAD
 
     console.log("EmailError is " + this.state.emailError);
     console.log("passwordError is " + this.state.passwordError);
     console.log("repasswordError is " + this.state.repasswordError);
+=======
+    console.log("EmailError is " + this.state.emailError);
+    console.log("passwordError is " + this.state.passwordError);
+    console.log("repasswordError is " + this.state.repasswordError);
+  }
+
+  onSignIn = (e) => {
+    if (this.state.emailError === false && this.state.passwordError === false && this.state.repasswordError === false) {
+      alert("OK");
+    }
+    else {
+      alert("Fill all fields");
+    }
+
+>>>>>>> 1f2123827471ca2ffd39a088cd6c9f1f0d355684
   }
 
   onSignIn = (e) => {
@@ -96,14 +112,21 @@ class About extends React.Component {
   render() {
     return (
       <Body title={"About Me"}>
+<<<<<<< HEAD
       <Greeting isLoggedIn={this.state.isLogged}/>
+=======
+>>>>>>> 1f2123827471ca2ffd39a088cd6c9f1f0d355684
       <form className="form-horizontal">
         {inputs.map((a, i) => {
           return (
             <div className={`form-group ${this.state[`${a.name}Error`] ? "has-error" : ""}`} key={i}>
               <label className="col-lg-offset-2 col-lg-3 control-label">{a.name}</label>
               <div className="col-lg-5">
+<<<<<<< HEAD
                 <input type={a.type} name={a.name} value={this.state[a.name]} className="form-control" placeholder={a.name}
+=======
+                <input type={a.type} name={a.name} className="form-control" placeholder={a.name}
+>>>>>>> 1f2123827471ca2ffd39a088cd6c9f1f0d355684
                        onChange={this.handleUserInput}/>
               </div>
             </div>

@@ -12,7 +12,11 @@ import Footer from './components/footer'
 
 const BasicExample = () => (
   <Router>
+<<<<<<< HEAD
       <div className="container">
+=======
+      <div className="container main-container">
+>>>>>>> 1f2123827471ca2ffd39a088cd6c9f1f0d355684
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
