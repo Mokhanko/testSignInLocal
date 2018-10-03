@@ -8,6 +8,6 @@ const Contacts = () => (
       <h2>----------------</h2>
     </div>
   </Body>
-  );
+);
 
-  export default Contacts;
+export default Contacts;
