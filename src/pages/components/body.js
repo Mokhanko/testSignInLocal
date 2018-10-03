@@ -43,7 +43,7 @@ class Clock extends React.Component {
 
 
 const Body = ({children, title}) =>(
-    <div>
+    <div className="body">
         <div className="jumbotron">
             <h1>{title}</h1>
             <Clock />      
