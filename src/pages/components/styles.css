@@ -20,7 +20,6 @@
     width:50%;
     margin: 0 auto;
 }
-<<<<<<< HEAD
 .full {
     width: 100%;
 }
@@ -155,23 +154,4 @@
 }
 .payments {
     font-size: 1.5em;
-=======
-.footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: aquamarine;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    border:1px solid black;
-}
-.footer_info .footer_icons{
-    background-color: black;
-    border:1px solid black;
-}
-.footer_icons{
-    font-size:20px;
-    color:black;
->>>>>>> 1f2123827471ca2ffd39a088cd6c9f1f0d355684
 }
