@@ -30,6 +30,7 @@
     display: block;
 }
 .footer {
+    margin-top:100px;
     background: #EDEFF1;
     height: auto;
     padding-bottom: 30px;
@@ -154,4 +155,100 @@
 }
 .payments {
     font-size: 1.5em;
+}
+
+
+.table {
+
+    max-height:100%;
+    margin:0;
+    table-layout: fixed;
+}
+
+
+.table_input{
+    width:100%;
+    height:100%;
+    color:blue;
+    display: block;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+.table th,td {
+    vertical-align: middle !important;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+table td > div {
+    line-height: 2;
+    max-height:100%;
+
+}
+.five{
+    width: 7%;
+    background: chartreuse;
+}
+.seven{
+    width: 7%;
+    background: gold;
+}
+.ten {
+    width: 12%;
+    background: tomato;
+}
+.sixtyfive {
+    width: 60%;
+    background: turquoise
+}
+
+.db_table{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #6cffb1;
+
+}
+
+.scrollable {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.fas{
+    display: inline-block;
+    vertical-align:middle;
+}
+
+
+.nav li{
+    display: inline-block;
+    font-weight: bolder;
+    text-transform: uppercase;
+    vertical-align:middle;
+}
+
+.fas{
+    font-size: 20px;
+}
+
+.loader {
+    align-self: center;
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

@@ -1,4 +1,5 @@
+
 export default {
-  STORAGE: "DIMA"
+  STORAGE: "TESTPORTFOLIO"
 }
 

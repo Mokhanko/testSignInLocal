@@ -2,70 +2,82 @@ import React from 'react'
 
 
 
-
 const ProductCell = (props) => {
   const {_id, manufacturer, unit_name, unit_cost, characteristic} = props.productToChange;
   return !props.isProductCollapsed ?
     <tr>
-      <td>{props.product.manufacturer}</td>
-      <td>{props.product.unit_name}</td>
-      <td>{props.product.unit_cost}</td>
-      <td>{props.product.characteristic}</td>
-      <td onClick={() => props.changeProductToChange(props.product)}>Edit</td>
-      <td onClick={() => props.deleteFromDb(_id)}>Delete</td>
+      <td><div className="scrollable">{props.product.manufacturer}</div></td>
+      <td><div className="scrollable">{props.product.unit_name}</div></td>
+      <td><div className="scrollable">{props.product.unit_cost}</div></td>
+      <td><div className="scrollable">{props.product.characteristic}</div></td>
+      <td onClick={() => props.changeProductToChange(props.product)}><div>Edit</div></td>
+      <td onClick={() => props.deleteFromDb(props.product._id)}><div>Delete</div></td>
     </tr>
     :
     <tr>
-      <td><input value={manufacturer} onChange={e => props.changeProductToChange({
+      <td><div><input type="text" value={manufacturer} onChange={e => props.changeProductToChange({
         ...props.productToChange,
         manufacturer: e.target.value
-      })}/></td>
-      <td><input value={unit_name} onChange={e => props.changeProductToChange({
+      })} className="table_input"/></div></td>
+      <td><div><input type="text"  value={unit_name} onChange={e => props.changeProductToChange({
         ...props.productToChange,
-        unit_name:e.target.value
-      })}/></td>
-      <td><input value={unit_cost} onChange={e => props.changeProductToChange({
+        unit_name: e.target.value
+      })} className="table_input"/></div></td>
+      <td><div><input type="text"  value={unit_cost} onChange={e => props.changeProductToChange({
         ...props.productToChange,
-        unit_cost:e.target.value
-      })}/></td>
-      <td><input value={characteristic} onChange={e => props.changeProductToChange({
+        unit_cost: e.target.value
+      })} className="table_input"/></div></td>
+      <td><div><input type="textarea"  value={characteristic} onChange={e => props.changeProductToChange({
         ...props.productToChange,
-        characteristic:e.target.value})}/></td>
-      <td onClick={() => props.changeProductToChange({})}>Cancel</td>
-      <td onClick={() => props.updateInDb(_id, manufacturer, unit_name, unit_cost, characteristic)}>Save</td>
+        characteristic: e.target.value
+      })} className="table_input"/></div></td>
+      <td onClick={() => props.changeProductToChange({})}><div>Cancel</div></td>
+      <td onClick={() => props.updateInDb(_id, manufacturer, unit_name, unit_cost, characteristic)}><div>Save</div></td>
     </tr>
 };
 
 const ProductTable = (props) => {
-  console.log("Table",props);
   return (
-    <table className="table table-bordered" style={{width: "400px"}}>
-      <thead>
-      <tr>
-        <th className="text-center">Manufacture</th>
-        <th className="text-center">Product Name</th>
-        <th className="text-center">Product Price</th>
-        <th className="text-center">Characteristic</th>
-      </tr>
-      </thead>
-      <tbody className="text-center">
-      {props.products.map((product) => (
-        <ProductCell
-          product={product}
-          key={product._id}
-          productToChange={props.productToChange}
-          isProductCollapsed={product._id === props.productToChange._id}
-          deleteFromDb={props.deleteFromDb}
-          changeProductToChange={props.changeProductToChange}
-          updateInDb={props.updateInDb}
-          changeManufacturer={props.changeManufacturer}
-          changeUnitName={props.changeUnitName}
-          changeUnitCost={props.changeUnitCost}
-          changeCharacteristic={props.changeCharacteristic}
-        />
-      ))}
-      </tbody>
-    </table>
+    <div className="db_table">
+      <h3 className="text-center">Products</h3>
+      <table className="table table-bordered">
+        <colgroup>
+          <col className="ten"/>
+          <col className="ten"/>
+          <col className="seven"/>
+          <col className="sixtyfive"/>
+          <col className="five"/>
+          <col className="five"/>
+        </colgroup>
+        <thead>
+        <tr>
+          <th className="text-center">Manufacture</th>
+          <th className="text-center">Product Name</th>
+          <th className="text-center">Product Price</th>
+          <th className="text-center">Characteristic</th>
+          <th className="text-center">Edit</th>
+          <th className="text-center">Delete</th>
+        </tr>
+        </thead>
+        <tbody className="text-left">
+        {props.products.map((product) => (
+          <ProductCell
+            product={product}
+            key={product._id}
+            productToChange={props.productToChange}
+            isProductCollapsed={product._id === props.productToChange._id}
+            deleteFromDb={props.deleteFromDb}
+            changeProductToChange={props.changeProductToChange}
+            updateInDb={props.updateInDb}
+            changeManufacturer={props.changeManufacturer}
+            changeUnitName={props.changeUnitName}
+            changeUnitCost={props.changeUnitCost}
+            changeCharacteristic={props.changeCharacteristic}
+          />
+        ))}
+        </tbody>
+      </table>
+    </div>
   )
 };
 

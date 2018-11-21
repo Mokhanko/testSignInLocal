@@ -36,62 +36,55 @@ class About extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.loadingSave !== this.props.loadingSave){
+    if (nextProps.loadingSave !== this.props.loadingSave) {
       this.props.loadDb()
     }
   };
 
-  addToDb = (a,b,c,d) => {
-    this.props.writeToDb(a,b,c,d)
+  addToDb = (a, b, c, d) => {
+    this.props.writeToDb(a, b, c, d)
   };
 
   render() {
     return (
-      <div>
-        <div>
-          <div className="row">
-            <h2>Ad Product to Database</h2>
-          </div>
-          <form action="#">
-            <div className="row">
-              <div className="col-md-3">
-                <div className="form-group form-group-sm">
-                  <label htmlFor="manufacturer" className="control-label">Manufacturer</label>
-                  <input type="text" className="form-control" id="manufacturer" placeholder="Manufacturer"
-                         onChange={e => this.props.changeManufacturer(e.target.value)}/>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="form-group">
-                  <label htmlFor="unit_name" className="control-label">Unit Name</label>
-                  <input type="text" className="form-control" id="unit_name" placeholder="Unit Name"
-                         onChange={e => this.props.changeUnitName(e.target.value)}/>
-                </div>
-              </div>
-              <div className="col-md-3">
-                <div className="form-group">
-                  <label htmlFor="unit_cost" className="control-label">Unit Cost</label>
-                  <input type="number" className="form-control" id="unit_cost" placeholder="Unit Cost"
-                         onChange={e => this.props.changeUnitCost(e.target.value)}/>
-                </div>
-              </div>
+      <div className="about">
+        <div className="add_db">
+          <h2>Ad Product to Database</h2>
+          <form action="#" className="add_db_form">
+            <div className="form-group form-group-sm">
+              <label htmlFor="manufacturer" className="control-label">Manufacturer</label>
+              <input type="text" className="form-control" id="manufacturer" placeholder="Manufacturer"
+                     onChange={e => this.props.changeManufacturer(e.target.value)}/>
             </div>
-            <div className="row">
-              <div className="col-xs-3">
-                <textarea className="form-control" placeholder="Characteristic"
-                          onChange={e => this.props.changeCharacteristic(e.target.value)}/>
-              </div>
+            <div className="form-group form-group-sm">
+              <label htmlFor="unit_name" className="control-label">Unit Name</label>
+              <input type="text" className="form-control" id="unit_name" placeholder="Unit Name"
+                     onChange={e => this.props.changeUnitName(e.target.value)}/>
             </div>
-            <div className="row">
-              <div className="col-xs-3">
-                <button type="submit" className="btn btn-default" onClick={() => this.addToDb(this.props.manufacture, this.props.unit_name, this.props.unit_cost, this.props.characteristic)}>Submit</button>
-              </div>
+            <div className="form-group form-group-sm">
+              <label htmlFor="unit_cost" className="control-label">Unit Cost</label>
+              <input type="number" className="form-control" id="unit_cost" placeholder="Unit Cost"
+                     onChange={e => this.props.changeUnitCost(e.target.value)}/>
             </div>
-          </form>
-        </div>
-        <ProductTable {...this.props}/>
-      </div>
-    );
+            <div className="form-group form-group-md">
+            <label htmlFor="unit_cost" className="control-label">Characteristic</label>
+            <textarea className="form-control" placeholder="Characteristic"
+                      onChange={e => this.props.changeCharacteristic(e.target.value)}/>
+            </div>
+            <button type="submit" className="btn btn-default btn-submit"
+                    onClick={() => this.addToDb(this.props.manufacturer, this.props.unit_name, this.props.unit_cost, this.props.characteristic)}>Submit
+            </button>
+      </form>
+  </div>
+  <
+    ProductTable
+    {...
+      this.props
+    }
+    />
+  </div>
+  )
+    ;
   }
 }
 

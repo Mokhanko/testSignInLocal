@@ -1,4 +1,4 @@
-import axios from "axios";
+import request from '../services/axiosMethods'
 
 const LOAD_SAVE_DATABASE ="LOAD_SAVE_DATABASE";
 const LOAD_FROM_DATABASE = "LOAD_FROM_DATABASE";
@@ -7,6 +7,8 @@ const CHANGE_UNIT_NAME = "CHANGE_UNIT_NAME";
 const CHANGE_UNIT_COST = "CHANGE_UNIT_COST";
 const CHANGE_CHARACTERISTIC = "CHANGE_CHARACTERISTIC";
 const CHANGE_PRODUCTTOCHANGE = "CHANGE_PRODUCTTOCHANGE";
+const FILTER_PRODUCT = "FILTER_PRODUCT";
+
 
 const initialState = {
   products: [],
@@ -19,7 +21,7 @@ const initialState = {
 };
 
 export const loadDb = () => dispatch => {
-  return axios.get('http://localhost:3001/api/v1/products')
+  return request({url:'http://localhost:3001/api/v1/products'})
     .then(response => {
       dispatch(fromDatabase(response.data))
     })
@@ -28,64 +30,46 @@ export const loadDb = () => dispatch => {
     });
 };
 
-export const writeToDb = (man, un, uc, ch) => dispatch => {
+export const writeToDb = (manufacturer, unit_name, unit_cost, characteristic) => dispatch => {
   dispatch(loadingSave(true));
-  return axios.post('http://localhost:3001/api/v1/products',
-  {
-    manufacturer: man,
-    unit_name: un,
-    unit_cost: uc,
-    characteristic: ch
-  })
-    .then(function (response) {
+  return request({ url: '/products', method: 'POST', data: { manufacturer, unit_name, unit_cost, characteristic } })
+    .then(response => {
       if(response.data){
         dispatch(loadingSave(false))
       }
-      console.log(response);
     })
-    .catch(function (error) {
+    .catch(error => {
       dispatch(loadingSave(false));
-      console.log(error);
+      throw(error);
     });
 };
 
 export const deleteFromDb = id => dispatch => {
   dispatch(loadingSave(true));
-  return axios.delete(`http://localhost:3001/api/v1/products/${id}`)
-    .then(function (response) {
+  return request({ url:`/products/${id}`, method: 'DELETE' })
+    .then(response => {
       if(response.data){
         dispatch(loadingSave(false))
       }
-      console.log(response);
     })
-    .catch(function (error) {
+    .catch(error => {
       dispatch(loadingSave(false));
-      console.log(error);
+      throw(error);
     });
 };
 
 export const updateInDb = (id, manufacturer, unit_name, unit_cost, characteristic) => dispatch => {
   dispatch(loadingSave(true));
-  return axios({
-    method: 'put',
-    url: `http://localhost:3001/api/v1/products/${id}`,
-    data:{
-      "manufacturer": manufacturer,
-      "unit_name": unit_name,
-      "unit_cost": unit_cost,
-      "characteristic": characteristic
-    }
-  })
-    .then(function (response) {
+  return request({ url: `/products/${id}`,  method: 'PUT', data: { manufacturer, unit_name,unit_cost, characteristic } })
+    .then(response => {
       if(response.data){
         dispatch(loadingSave(false));
         dispatch(changeProductToChange({}));
       }
-      console.log(response);
     })
-    .catch(function (error) {
+    .catch(error => {
       dispatch(loadingSave(false));
-      console.log(error);
+      throw(error);
     });
 };
 
@@ -126,6 +110,11 @@ export const changeProductToChange = (productToChange) => ({
   productToChange
 });
 
+export const filterProducts = (filterproduct) => ({
+  type: CHANGE_PRODUCTTOCHANGE,
+  filterproduct
+});
+
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_FROM_DATABASE:
@@ -155,6 +144,10 @@ const productsReducer = (state = initialState, action) => {
     case CHANGE_PRODUCTTOCHANGE:
       return Object.assign({}, state, {
         productToChange: action.productToChange
+      });
+    case FILTER_PRODUCT:
+      return Object.assign({}, state, {
+        products: action.filterproduct
       });
     default:
       return state;

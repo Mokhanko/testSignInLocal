@@ -29,7 +29,7 @@ class Clock extends React.Component {
         //console.log('Clock on is ' + this.state.clock_on);
         this.setState({clock_on:!this.state.clock_on});
         //console.log('Clock on is ' + this.state.clock_on);  
-      } 
+      };
 
     render() {
       return (

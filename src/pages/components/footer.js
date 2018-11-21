@@ -7,37 +7,37 @@ const Footer = () => (
         <div className="col-lg-2  col-md-2 col-sm-4 col-xs-6">
           <h3> Lorem Ipsum </h3>
           <ul>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
           </ul>
         </div>
         <div className="col-lg-2  col-md-2 col-sm-4 col-xs-6">
           <h3> Lorem Ipsum </h3>
           <ul>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
           </ul>
         </div>
         <div className="col-lg-2  col-md-2 col-sm-4 col-xs-6">
           <h3> Lorem Ipsum </h3>
           <ul>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
           </ul>
         </div>
         <div className="col-lg-2  col-md-2 col-sm-4 col-xs-6">
           <h3> Lorem Ipsum </h3>
           <ul>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
-            <li><a href="#"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
+            <li><a href="#/"> Lorem Ipsum </a></li>
           </ul>
         </div>
         <div className="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
@@ -52,11 +52,11 @@ const Footer = () => (
             </li>
           </ul>
           <ul className="social">
-            <li><a href="#"> <i className=" fa fa-facebook"> </i> </a></li>
-            <li><a href="#"> <i className="fa fa-twitter"> </i> </a></li>
-            <li><a href="#"> <i className="fa fa-google-plus"> </i> </a></li>
-            <li><a href="#"> <i className="fa fa-pinterest"> </i> </a></li>
-            <li><a href="#"> <i className="fa fa-youtube"> </i> </a></li>
+            <li><a href="#/"> <i className=" fa fa-facebook"> </i> </a></li>
+            <li><a href="#/"> <i className="fa fa-twitter"> </i> </a></li>
+            <li><a href="#/"> <i className="fa fa-google-plus"> </i> </a></li>
+            <li><a href="#/"> <i className="fa fa-pinterest"> </i> </a></li>
+            <li><a href="#/"> <i className="fa fa-youtube"> </i> </a></li>
           </ul>
         </div>
       </div>
