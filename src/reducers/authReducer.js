@@ -12,7 +12,6 @@ const CHANGE_CHECK_REPASSWORD = "CHANGE_CHECK_REPASSWORD";
 const CHANGE_EMAIL_ERROR = "CHANGE_EMAIL_ERROR";
 const CHANGE_PASSWORD_ERROR = "CHANGE_PASSWORD_ERROR";
 const CHANGE_REGISTRATION_ERROR = "CHANGE_REGISTRATION_ERROR";
-const CHANGE_PERCENTAGE = "CHANGE_PERCENTAGE";
 const LOADING = "LOADING";
 
 
@@ -144,10 +143,7 @@ export const changeRegistrationError = error => ({
   error
 });
 
-export const changePercentage = value => ({
-  type: "CHANGE_PERCENTAGE",
-  value
-});
+
 
 export const loading = loading => ({
   type: "LOADING",
@@ -199,10 +195,6 @@ const authReducer = (state = initialState, action) => {
     case CHANGE_REGISTRATION_ERROR:
       return Object.assign({}, state, {
        registration_error: action.error
-      });
-    case CHANGE_PERCENTAGE:
-      return Object.assign({}, state, {
-        percentage: action.value
       });
     case LOADING:
       return Object.assign({}, state, {

@@ -14,6 +14,10 @@ import {
   registerUser
 } from '../reducers/authReducer'
 import Loader from './components/loader'
+import {Map, TileLayer} from "react-leaflet";
+import Graphics from './components/graphics'
+import BarGraphics from './components/barGraphics'
+import "leaflet/dist/leaflet.css";
 
 
 const mapStateToProps = (state) => {
@@ -50,7 +54,13 @@ const mapDispatchToProps = dispatch => ({
 
 class Login extends React.Component {
 
-  logIn = (e,email, pass) => {
+  state = {
+    lat: 51.505,
+    lng: -0.09,
+    zoom: 13,
+  };
+
+  logIn = (e, email, pass) => {
     e.preventDefault();
     this.props.logInUser(email, pass);
   };
@@ -91,7 +101,7 @@ class Login extends React.Component {
         }
         break;
       case 'repassword':
-        if(this.props.password === value){
+        if (this.props.password === value) {
           this.props.changeRePassword(value);
           this.props.changeCheckRePassword(true);
         }
@@ -128,7 +138,8 @@ class Login extends React.Component {
 
         </div>
         <div className="register_block">
-          {this.props.registration_error === '' ? null : (<div className="text-danger text-center">{this.props.registration_error}</div>)}
+          {this.props.registration_error === '' ? null : (
+            <div className="text-danger text-center">{this.props.registration_error}</div>)}
           <h2 className="form-reg-heading text-center">Register</h2>
           <form className="form-reg">
             {this.props.email_error === '' ? null : (<div className="text-danger">{this.props.email_error}</div>)}
@@ -148,7 +159,8 @@ class Login extends React.Component {
               <input type="password" name="password" id="inputRegPassword" className="form-control"
                      placeholder="Password" onChange={e => this.handleUserInput(e.target.name, e.target.value)}/>
             </div>
-            {this.props.check_repassword === true ? null : (<div className="text-danger">Passwords does not much!</div>)}
+            {this.props.check_repassword === true ? null : (
+              <div className="text-danger">Passwords does not much!</div>)}
             <div className={`form-group ${this.props.check_password ? '' : 'has-error'}`}>
               <label htmlFor="inputRePassword" className="sr-only">Repassword</label>
               <input type="password" name="repassword" id="inputRegRePassword" className="form-control"
@@ -160,6 +172,16 @@ class Login extends React.Component {
             </button>
           </form>
         </div>
+        <div id="map">
+          <Map center={[this.state.lat, this.state.lng]} zoom={this.state.zoom}>
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+            />
+          </Map>
+        </div>
+        <Graphics/>
+        <BarGraphics/>
       </div>
     );
   }

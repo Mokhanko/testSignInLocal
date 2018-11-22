@@ -30,6 +30,7 @@ html,body{
     width:100%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
 }
 
@@ -97,4 +98,24 @@ html,body{
     .about {
         flex-direction: column;
     }
+}
+
+#map{
+    border: 2px solid yellow;
+    height:400px;
+    width:400px;
+}
+.leaflet-container {
+    height: 400px;
+    width: 100%;
+}
+
+#graphics{
+    height:500px;
+    width:800px;
+}
+
+#barGr{
+    height:500px;
+    width:800px;
 }

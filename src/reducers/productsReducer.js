@@ -7,7 +7,6 @@ const CHANGE_UNIT_NAME = "CHANGE_UNIT_NAME";
 const CHANGE_UNIT_COST = "CHANGE_UNIT_COST";
 const CHANGE_CHARACTERISTIC = "CHANGE_CHARACTERISTIC";
 const CHANGE_PRODUCTTOCHANGE = "CHANGE_PRODUCTTOCHANGE";
-const FILTER_PRODUCT = "FILTER_PRODUCT";
 
 
 const initialState = {
@@ -73,12 +72,11 @@ export const updateInDb = (id, manufacturer, unit_name, unit_cost, characteristi
     });
 };
 
+
 export const loadingSave = (value) => ({
   type: LOAD_SAVE_DATABASE,
   value
 });
-
-
 
 export const fromDatabase = (products) => ({
   type: LOAD_FROM_DATABASE,
@@ -110,10 +108,6 @@ export const changeProductToChange = (productToChange) => ({
   productToChange
 });
 
-export const filterProducts = (filterproduct) => ({
-  type: CHANGE_PRODUCTTOCHANGE,
-  filterproduct
-});
 
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -144,10 +138,6 @@ const productsReducer = (state = initialState, action) => {
     case CHANGE_PRODUCTTOCHANGE:
       return Object.assign({}, state, {
         productToChange: action.productToChange
-      });
-    case FILTER_PRODUCT:
-      return Object.assign({}, state, {
-        products: action.filterproduct
       });
     default:
       return state;
