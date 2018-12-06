@@ -40,6 +40,24 @@ const ProductTable = (props) => {
   return (
     <div className="db_table">
       <h3 className="text-center">Products</h3>
+      <div className='filter_input'>
+        <input type='text' name='manufacturer' onChange={e => props.addFilter({
+          ...props.filters,
+          manufacturer: e.target.value
+        })}/>
+        <input type='text' name='unit_name' onChange={e => props.addFilter({
+          ...props.filters,
+          unit_name: e.target.value
+        })}/>
+        <input type='number' name='unit_cost' onChange={e => props.addFilter({
+          ...props.filters,
+          unit_cost: e.target.value
+        })}/>
+        <input type='text' name='characteristic' onChange={e => props.addFilter({
+          ...props.filters,
+          characteristic: e.target.value
+        })}/>
+      </div>
       <table className="table table-bordered">
         <colgroup>
           <col className="ten"/>
@@ -50,8 +68,9 @@ const ProductTable = (props) => {
           <col className="five"/>
         </colgroup>
         <thead>
+
         <tr>
-          <th className="text-center">Manufacture</th>
+          <th className="text-center">Manufacturer</th>
           <th className="text-center">Product Name</th>
           <th className="text-center">Product Price</th>
           <th className="text-center">Characteristic</th>

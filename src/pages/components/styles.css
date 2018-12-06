@@ -235,13 +235,13 @@ table td > div {
 }
 
 .fas{
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .loader {
     align-self: center;
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid #3498db; /* Blue */
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -252,3 +252,33 @@ table td > div {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.btn_logout{
+    padding: 0;
+    margin: 50% 0 0;
+    border:none;
+    background: none;
+}
+
+.navbar-right {
+    display: flex;
+    align-content: center;
+}
+.filter_input{
+    width:100%;
+}
+
+.filter_input input:first-child{
+    width: 12%;
+}
+.filter_input input:nth-child(2){
+    width: 11%;
+}
+
+.filter_input input:nth-child(3){
+    width: 7%;
+}
+.filter_input input:last-child{
+    width: 57%;
+}
+

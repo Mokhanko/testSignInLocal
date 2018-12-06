@@ -2,18 +2,22 @@ import React from "react";
 import {connect} from 'react-redux'
 import {
   loadDb, writeToDb, changeManufacturer, changeUnitName,
-  changeUnitCost, changeCharacteristic, deleteFromDb, updateInDb, changeProductToChange
+  changeUnitCost, changeCharacteristic, deleteFromDb, updateInDb, changeProductToChange,
+  addFilter
 } from '../reducers/productsReducer'
+import {searchProductManufacturer} from '../reducers/productsReducer'
 import ProductTable from './components/productTable'
 
 const mapStateToProps = (state) => ({
-  products: state.products.products,
+  products: searchProductManufacturer(state.products.products, state.products.filter_value,state.products.filters),
   manufacturer: state.products.manufacturer,
   unit_name: state.products.unit_name,
   unit_cost: state.products.unit_cost,
   characteristic: state.products.characteristic,
   loadingSave: state.products.loadingSave,
-  productToChange: state.products.productToChange
+  productToChange: state.products.productToChange,
+  filter_value: state.products.filter_value,
+  filters: state.products.filters
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -25,7 +29,8 @@ const mapDispatchToProps = dispatch => ({
   changeCharacteristic: (a) => dispatch(changeCharacteristic(a)),
   deleteFromDb: (id) => dispatch(deleteFromDb(id)),
   updateInDb: (id, man, un, uc, ch) => dispatch(updateInDb(id, man, un, uc, ch)),
-  changeProductToChange: (id) => dispatch(changeProductToChange(id))
+  changeProductToChange: (id) => dispatch(changeProductToChange(id)),
+  addFilter: (filter_value) => dispatch(addFilter(filter_value))
 });
 
 
@@ -67,24 +72,24 @@ class About extends React.Component {
                      onChange={e => this.props.changeUnitCost(e.target.value)}/>
             </div>
             <div className="form-group form-group-md">
-            <label htmlFor="unit_cost" className="control-label">Characteristic</label>
-            <textarea className="form-control" placeholder="Characteristic"
-                      onChange={e => this.props.changeCharacteristic(e.target.value)}/>
+              <label htmlFor="unit_cost" className="control-label">Characteristic</label>
+              <textarea className="form-control" placeholder="Characteristic"
+                        onChange={e => this.props.changeCharacteristic(e.target.value)}/>
             </div>
             <button type="submit" className="btn btn-default btn-submit"
                     onClick={() => this.addToDb(this.props.manufacturer, this.props.unit_name, this.props.unit_cost, this.props.characteristic)}>Submit
             </button>
-      </form>
-  </div>
-  <
-    ProductTable
-    {...
-      this.props
-    }
-    />
-  </div>
-  )
-    ;
+          </form>
+        </div>
+        <
+          ProductTable
+          {...
+            this.props
+          }
+        />
+      </div>
+    )
+      ;
   }
 }
 

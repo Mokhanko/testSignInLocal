@@ -28,9 +28,6 @@ class BasicExample extends React.Component {
     this.props.isUserLogged(this.props.token);
   }
 
-  componentWillReceiveProps(nextProps){
-
-  }
 
   render() {
     return (

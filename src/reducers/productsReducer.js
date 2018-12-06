@@ -1,26 +1,34 @@
 import request from '../services/axiosMethods'
 
-const LOAD_SAVE_DATABASE ="LOAD_SAVE_DATABASE";
+const LOAD_SAVE_DATABASE = "LOAD_SAVE_DATABASE";
 const LOAD_FROM_DATABASE = "LOAD_FROM_DATABASE";
 const CHANGE_MANUFACTURER = "CHANGE_MANUFACTURER";
 const CHANGE_UNIT_NAME = "CHANGE_UNIT_NAME";
 const CHANGE_UNIT_COST = "CHANGE_UNIT_COST";
 const CHANGE_CHARACTERISTIC = "CHANGE_CHARACTERISTIC";
 const CHANGE_PRODUCTTOCHANGE = "CHANGE_PRODUCTTOCHANGE";
-
+const ADD_FILTER = "ADD_FILTER";
 
 const initialState = {
   products: [],
-  manufacturer: "",
-  unit_name: "",
-  unit_cost: "",
-  characteristic: "",
+  manufacturer: '',
+  unit_name: '',
+  unit_cost: '',
+  characteristic: '',
   loadingSave: false,
-  productToChange:{}
+  productToChange: {},
+  filter_value: '',
+  filters: {
+    manufacturer: '',
+    unit_name: '',
+    unit_cost: '',
+    characteristic: ''
+  }
 };
 
+
 export const loadDb = () => dispatch => {
-  return request({url:'http://localhost:3001/api/v1/products'})
+  return request({url: '/products'})
     .then(response => {
       dispatch(fromDatabase(response.data))
     })
@@ -31,9 +39,9 @@ export const loadDb = () => dispatch => {
 
 export const writeToDb = (manufacturer, unit_name, unit_cost, characteristic) => dispatch => {
   dispatch(loadingSave(true));
-  return request({ url: '/products', method: 'POST', data: { manufacturer, unit_name, unit_cost, characteristic } })
+  return request({url: '/products', method: 'POST', data: {manufacturer, unit_name, unit_cost, characteristic}})
     .then(response => {
-      if(response.data){
+      if (response.data) {
         dispatch(loadingSave(false))
       }
     })
@@ -45,9 +53,9 @@ export const writeToDb = (manufacturer, unit_name, unit_cost, characteristic) =>
 
 export const deleteFromDb = id => dispatch => {
   dispatch(loadingSave(true));
-  return request({ url:`/products/${id}`, method: 'DELETE' })
+  return request({url: `/products/${id}`, method: 'DELETE'})
     .then(response => {
-      if(response.data){
+      if (response.data) {
         dispatch(loadingSave(false))
       }
     })
@@ -59,9 +67,9 @@ export const deleteFromDb = id => dispatch => {
 
 export const updateInDb = (id, manufacturer, unit_name, unit_cost, characteristic) => dispatch => {
   dispatch(loadingSave(true));
-  return request({ url: `/products/${id}`,  method: 'PUT', data: { manufacturer, unit_name,unit_cost, characteristic } })
+  return request({url: `/products/${id}`, method: 'PUT', data: {manufacturer, unit_name, unit_cost, characteristic}})
     .then(response => {
-      if(response.data){
+      if (response.data) {
         dispatch(loadingSave(false));
         dispatch(changeProductToChange({}));
       }
@@ -71,7 +79,6 @@ export const updateInDb = (id, manufacturer, unit_name, unit_cost, characteristi
       throw(error);
     });
 };
-
 
 export const loadingSave = (value) => ({
   type: LOAD_SAVE_DATABASE,
@@ -109,6 +116,12 @@ export const changeProductToChange = (productToChange) => ({
 });
 
 
+
+export const addFilter = (payload) => ({
+  type: ADD_FILTER,
+  payload
+});
+
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_FROM_DATABASE:
@@ -139,9 +152,25 @@ const productsReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         productToChange: action.productToChange
       });
+    case ADD_FILTER:
+      return Object.assign({}, state, {
+        filters: action.payload
+      });
     default:
       return state;
   }
+};
+
+export const searchProductManufacturer = (arr = [], filter_value = '', filters = []) => {
+
+  return arr.filter(
+    item =>
+      filters.manufacturer !== '' ? (item.manufacturer.toLocaleLowerCase().indexOf(filters.manufacturer.toLocaleLowerCase()) !== -1) : (item.manufacturer))
+    .filter(item =>
+      filters.unit_name !== '' ? (item.unit_name.toLocaleLowerCase().indexOf(filters.unit_name.toLowerCase()) !== -1) : (item.unit_name))
+    .filter(item => Math.trunc(item.unit_cost) > filters.unit_cost)
+    .filter(item =>
+      filters.characteristic !== '' ? (item.characteristic.toLocaleLowerCase().indexOf(filters.characteristic.toLowerCase()) !== -1) : (item.characteristic))
 };
 
 export default productsReducer;

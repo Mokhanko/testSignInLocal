@@ -3,21 +3,19 @@ import {connect} from 'react-redux'
 import {Link} from "react-router-dom";
 import './styles.css'
 import portfolio from './images/portfolio.jpg';
-
+import { logOutUser } from '../../reducers/authReducer'
 
 const mapStateToProps = (state) => ({
-  name: state.users.user_name
+  name: state.users.show_name
 });
 
-
+const mapDispatchToProps = dispatch => ({
+  logOutUser: () => dispatch(logOutUser())
+});
 
 class Header extends React.Component {
 
-  componentDidMount(){
-
-  }
-
-  render() {
+   render() {
     return (
       <div>
         <nav className="navbar navbar-default">
@@ -26,7 +24,7 @@ class Header extends React.Component {
               <Link to="/"><img alt="portfolio" src={portfolio} width="100" height="50"/></Link>
               <ul className="nav navbar-nav navbar-right">
                 <li><a href="#/">Wellcome {this.props.name}</a></li>
-                <li><a href="#/"><i className="fas fa-sign-out-alt"></i></a></li>
+                <li><button className='btn_logout' onClick={ this.props.logOutUser }><i className="fas fa-sign-out-alt"></i></button></li>
               </ul>
             </div>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -43,4 +41,4 @@ class Header extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, {})(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

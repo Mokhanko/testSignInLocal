@@ -5,6 +5,7 @@ const CHANGE_EMAIL = "CHANGE_EMAIL";
 const CHANGE_NAME = "CHANGE_NAME";
 const CHANGE_PASSWORD = "CHANGE_PASSWORD";
 const CHANGE_REPASSWORD = "CHANGE_REPASSWORD";
+const CHANGE_SHOWNAME = "CHANGE_SHOWNAME";
 const CHANGE_TOKEN = "CHANGE_TOKEN";
 const CHANGE_CHECK_EMAIL = "CHANGE_CHECK_EMAIL";
 const CHANGE_CHECK_PASSWORD = "CHANGE_CHECK_PASSWORD";
@@ -12,7 +13,8 @@ const CHANGE_CHECK_REPASSWORD = "CHANGE_CHECK_REPASSWORD";
 const CHANGE_EMAIL_ERROR = "CHANGE_EMAIL_ERROR";
 const CHANGE_PASSWORD_ERROR = "CHANGE_PASSWORD_ERROR";
 const CHANGE_REGISTRATION_ERROR = "CHANGE_REGISTRATION_ERROR";
-const LOADING = "LOADING";
+const LOADING_SIGNIN = "LOADING_SIGNIN";
+const LOADING_REG = "LOADING_REG";
 
 
 const initialState = {
@@ -20,6 +22,7 @@ const initialState = {
   user_name: "",
   user_password: "",
   user_rePassword: "",
+  show_name: "",
   token: STORAGE.get("TOKEN"),
   check_email: false,
   check_password: false,
@@ -27,26 +30,25 @@ const initialState = {
   email_error: null,
   password_error: null,
   registration_error: null,
-  loading: false
+  loading_signin: false,
+  loading_reg: false
 };
 
-
-
-
 export const logInUser = (email, password) => dispatch => {
-  dispatch(loading(true));
+  dispatch(loadingSignIn(true));
   return setTimeout(() => request({ url:'/auth/sign_in', method: 'POST', data: { email, password }})
     .then(response => {
-      dispatch(loading(false));
+      dispatch(loadingSignIn(false));
       if (response.data) {
         STORAGE.set("TOKEN", response.data && response.data.token);
         dispatch(changeToken(STORAGE.get("TOKEN")));
         dispatch(changeEmail(''));
         dispatch(changePassword(''));
+        dispatch(changeShowName(response.data.name));
       }
     })
     .catch(error => {
-      dispatch(loading(false));
+      dispatch(loadingSignIn(false));
       switch (JSON.stringify(error.response.status)) {
         case '401':
           dispatch(changeEmailError(JSON.stringify(error.response.data.message)));
@@ -61,11 +63,17 @@ export const logInUser = (email, password) => dispatch => {
     }),3000);
 };
 
+export const logOutUser = () => dispatch => {
+  STORAGE.remove("TOKEN");
+  dispatch(changeToken(STORAGE.get("TOKEN")));
+  dispatch(changeShowName(''));
+};
+
 export const isUserLogged = () => dispatch => {
   return request({ url: '/auth/login_required', method: 'POST' })
     .then(response => {
       if (response.data) {
-        dispatch(changeName(response.data.name));
+        dispatch(changeShowName(response.data.name));
       }
     })
     .catch(error => {
@@ -76,16 +84,19 @@ export const isUserLogged = () => dispatch => {
 };
 
 export const registerUser =(email, name, password) => dispatch => {
-  return request({ url: '/auth/register', method: 'POST', data: { email, name,password } })
+  dispatch(loadingReg(true));
+  return setTimeout(() => request({ url: '/auth/register', method: 'POST', data: { email, name,password } })
     .then(response => {
       if(response.data){
+        dispatch(loadingReg(false));
         dispatch(changeEmail(''));
         dispatch(changePassword(''));
       }
     })
     .catch(error => {
+      dispatch(loadingReg(false));
       dispatch(changeRegistrationError(JSON.stringify(error.response.data.message)))
-    })
+    }), 3000)
 };
 
 export const changeEmail = email => ({
@@ -145,9 +156,19 @@ export const changeRegistrationError = error => ({
 
 
 
-export const loading = loading => ({
-  type: "LOADING",
-  loading
+export const loadingSignIn = payload => ({
+  type: "LOADING_SIGNIN",
+  payload
+});
+
+export const loadingReg = payload => ({
+  type: "LOADING_REG",
+  payload
+});
+
+export const changeShowName = payload => ({
+  type: "CHANGE_SHOWNAME",
+  payload
 });
 
 const authReducer = (state = initialState, action) => {
@@ -196,9 +217,17 @@ const authReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
        registration_error: action.error
       });
-    case LOADING:
+    case LOADING_SIGNIN:
       return Object.assign({}, state, {
-        loading: action.loading
+        loading_signin: action.payload
+      });
+    case LOADING_REG:
+      return Object.assign({}, state, {
+        loading_reg: action.payload
+      });
+    case CHANGE_SHOWNAME:
+      return Object.assign({}, state, {
+        show_name: action.payload
       });
     default:
       return state;

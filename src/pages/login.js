@@ -11,13 +11,10 @@ import {
   changePasswordError,
   changeRePassword,
   logInUser,
-  registerUser
+  registerUser,
 } from '../reducers/authReducer'
 import Loader from './components/loader'
-import {Map, TileLayer} from "react-leaflet";
-import Graphics from './components/graphics'
-import BarGraphics from './components/barGraphics'
-import "leaflet/dist/leaflet.css";
+
 
 
 const mapStateToProps = (state) => {
@@ -33,7 +30,9 @@ const mapStateToProps = (state) => {
     password_error: state.users.password_error,
     registration_error: state.users.registration_error,
     percentage: state.users.percentage,
-    loading: state.users.loading
+    loading_signin: state.users.loading_signin,
+    loading_reg: state.users.loading_reg,
+    token: state.users.token
   }
 };
 
@@ -48,17 +47,11 @@ const mapDispatchToProps = dispatch => ({
   changeRePassword: (a) => dispatch(changeRePassword(a)),
   changeEmailError: (a) => dispatch(changeEmailError(a)),
   changePasswordError: (a) => dispatch(changePasswordError(a)),
-  registerUser: (email, name, password) => dispatch(registerUser(email, name, password)),
+  registerUser: (email, name, password) => dispatch(registerUser(email, name, password))
 });
 
 
 class Login extends React.Component {
-
-  state = {
-    lat: 51.505,
-    lng: -0.09,
-    zoom: 13,
-  };
 
   logIn = (e, email, pass) => {
     e.preventDefault();
@@ -116,7 +109,7 @@ class Login extends React.Component {
       <div className="userPanel">
         <div className="signin_block">
           <h2 className="form-signin-heading text-center">Sign In</h2>
-          {this.props.loading && <Loader/>}
+          {this.props.loading_signin && <Loader/>}
           <form className="form-signin">
             {this.props.email_error === '' ? null : (<div className="text-danger">{this.props.email_error}</div>)}
             <div className={`form-group ${this.props.check_email ? '' : 'has-error'}`}>
@@ -138,11 +131,11 @@ class Login extends React.Component {
 
         </div>
         <div className="register_block">
+          {this.props.loading_reg && <Loader/>}
           {this.props.registration_error === '' ? null : (
             <div className="text-danger text-center">{this.props.registration_error}</div>)}
           <h2 className="form-reg-heading text-center">Register</h2>
           <form className="form-reg">
-            {this.props.email_error === '' ? null : (<div className="text-danger">{this.props.email_error}</div>)}
             <div className={`form-group ${this.props.check_email ? '' : 'has-error'}`}>
               <label htmlFor="inputEmail" className="sr-only">Email address</label>
               <input type="text" name="email" id="inputRegEmail" className="form-control"
@@ -153,7 +146,6 @@ class Login extends React.Component {
               <input type="text" name="name" id="inputRegNickName" className="form-control"
                      placeholder="Nick Name" onChange={e => this.handleUserInput(e.target.name, e.target.value)}/>
             </div>
-            {this.props.password_error === '' ? null : (<div className="text-danger">{this.props.password_error}</div>)}
             <div className={`form-group ${this.props.check_password ? '' : 'has-error'}`}>
               <label htmlFor="inputPassword" className="sr-only">Password</label>
               <input type="password" name="password" id="inputRegPassword" className="form-control"
@@ -172,16 +164,6 @@ class Login extends React.Component {
             </button>
           </form>
         </div>
-        <div id="map">
-          <Map center={[this.state.lat, this.state.lng]} zoom={this.state.zoom}>
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-            />
-          </Map>
-        </div>
-        <Graphics/>
-        <BarGraphics/>
       </div>
     );
   }

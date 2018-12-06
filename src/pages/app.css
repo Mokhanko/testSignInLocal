@@ -59,7 +59,8 @@ html,body{
 }
 
 .register_block:hover{
-
+    display: flex;
+    flex-direction: column;
     opacity: 1;
 }
 
@@ -118,4 +119,16 @@ html,body{
 #barGr{
     height:500px;
     width:800px;
+}
+
+.home_wrapper{
+    width:100%;
+    height: auto;
+    display:flex;
+    flex-direction: column;
+}
+
+.graphics{
+    display: flex;
+    flex-direction: column;
 }
