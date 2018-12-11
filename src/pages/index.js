@@ -19,15 +19,14 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  isUserLogged: (token) => dispatch(isUserLogged(token))
+  isUserLogged: () => dispatch(isUserLogged())
 });
 
 class BasicExample extends React.Component {
 
   componentDidMount(){
-    this.props.isUserLogged(this.props.token);
+    this.props.isUserLogged();
   }
-
 
   render() {
     return (

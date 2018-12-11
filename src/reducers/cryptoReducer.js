@@ -1,7 +1,5 @@
 import request from '../services/axiosMethods'
 
-
-
 const ON_CHANGE_CRYPTODATA = 'ON_CHANGE_CRYPTODATA';
 const ON_CHANGE_COINS = 'ON_CHANGE_COINS';
 const ON_CHANGE_LOADING = 'ON_CHANGE_LOADING';

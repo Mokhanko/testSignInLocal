@@ -1,6 +1,6 @@
 import React from 'react'
-
-
+import {compose, branch, renderComponent} from 'recompose';
+import Loader from "./loader";
 
 const ProductCell = (props) => {
   const {_id, manufacturer, unit_name, unit_cost, characteristic} = props.productToChange;
@@ -36,68 +36,71 @@ const ProductCell = (props) => {
     </tr>
 };
 
-const ProductTable = (props) => {
-  return (
-    <div className="db_table">
-      <h3 className="text-center">Products</h3>
-      <div className='filter_input'>
-        <input type='text' name='manufacturer' onChange={e => props.addFilter({
-          ...props.filters,
-          manufacturer: e.target.value
-        })}/>
-        <input type='text' name='unit_name' onChange={e => props.addFilter({
-          ...props.filters,
-          unit_name: e.target.value
-        })}/>
-        <input type='number' name='unit_cost' onChange={e => props.addFilter({
-          ...props.filters,
-          unit_cost: e.target.value
-        })}/>
-        <input type='text' name='characteristic' onChange={e => props.addFilter({
-          ...props.filters,
-          characteristic: e.target.value
-        })}/>
-      </div>
-      <table className="table table-bordered">
-        <colgroup>
-          <col className="ten"/>
-          <col className="ten"/>
-          <col className="seven"/>
-          <col className="sixtyfive"/>
-          <col className="five"/>
-          <col className="five"/>
-        </colgroup>
-        <thead>
-
-        <tr>
-          <th className="text-center">Manufacturer</th>
-          <th className="text-center">Product Name</th>
-          <th className="text-center">Product Price</th>
-          <th className="text-center">Characteristic</th>
-          <th className="text-center">Edit</th>
-          <th className="text-center">Delete</th>
-        </tr>
-        </thead>
-        <tbody className="text-left">
-        {props.products.map((product) => (
-          <ProductCell
-            product={product}
-            key={product._id}
-            productToChange={props.productToChange}
-            isProductCollapsed={product._id === props.productToChange._id}
-            deleteFromDb={props.deleteFromDb}
-            changeProductToChange={props.changeProductToChange}
-            updateInDb={props.updateInDb}
-            changeManufacturer={props.changeManufacturer}
-            changeUnitName={props.changeUnitName}
-            changeUnitCost={props.changeUnitCost}
-            changeCharacteristic={props.changeCharacteristic}
-          />
-        ))}
-        </tbody>
-      </table>
+const ProductTable = ({loadingSave, filters, productToChange, products, deleteFromDb, changeProductToChange, updateInDb,
+  changeManufacturer, changeUnitName, changeUnitCost, changeCharacteristic, addFilter}) => (
+  <div className="db_table">
+    <h3 className="text-center">Products</h3>
+    <div className='filter_input'>
+      <input type='text' name='manufacturer' onChange={e => addFilter({
+        ...filters,
+        manufacturer: e.target.value
+      })}/>
+      <input type='text' name='unit_name' onChange={e => addFilter({
+        ...filters,
+        unit_name: e.target.value
+      })}/>
+      <input type='number' name='unit_cost' onChange={e => addFilter({
+        ...filters,
+        unit_cost: e.target.value
+      })}/>
+      <input type='text' name='characteristic' onChange={e => addFilter({
+        ...filters,
+        characteristic: e.target.value
+      })}/>
     </div>
-  )
-};
+    <table className="table table-bordered">
+      <colgroup>
+        <col className="ten"/>
+        <col className="ten"/>
+        <col className="seven"/>
+        <col className="sixtyfive"/>
+        <col className="five"/>
+        <col className="five"/>
+      </colgroup>
+      <thead>
+      <tr>
+        <th className="text-center">Manufacturer</th>
+        <th className="text-center">Product Name</th>
+        <th className="text-center">Product Price</th>
+        <th className="text-center">Characteristic</th>
+        <th className="text-center">Edit</th>
+        <th className="text-center">Delete</th>
+      </tr>
+      </thead>
+      <tbody className="text-left">
+      {products.map((product) => (
+        <ProductCell
+          product={product}
+          key={product._id}
+          productToChange={productToChange}
+          isProductCollapsed={product._id === productToChange._id}
+          deleteFromDb={deleteFromDb}
+          changeProductToChange={changeProductToChange}
+          updateInDb={updateInDb}
+          changeManufacturer={changeManufacturer}
+          changeUnitName={changeUnitName}
+          changeUnitCost={changeUnitCost}
+          changeCharacteristic={changeCharacteristic}
+        />
+      ))}
+      </tbody>
+    </table>
+  </div>
+);
 
-export default ProductTable;
+export default compose(
+  branch(
+    props => props.loadingSave,
+    renderComponent(Loader)
+  )
+)(ProductTable);

@@ -28,13 +28,16 @@ const initialState = {
 
 
 export const loadDb = () => dispatch => {
-  return request({url: '/products'})
+  dispatch(loadingSave(true));
+  return  setTimeout(() => request({url: '/products'})
     .then(response => {
+      dispatch(loadingSave(false));
       dispatch(fromDatabase(response.data))
     })
     .catch(error => {
+      dispatch(loadingSave(false));
       throw(error);
-    });
+    }), 2000)
 };
 
 export const writeToDb = (manufacturer, unit_name, unit_cost, characteristic) => dispatch => {

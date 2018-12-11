@@ -11,7 +11,7 @@ import { cryptoSelector } from '../reducers/cryptoReducer'
 
 const Contacts = ({
   crypto, loadingData, active, second_active, lim, selects, onChangeActive, onChangeSecondActive, onChangeLim, send
-}) =>(
+}) => (
   <Body title={"Contact me"}>
     <select value={active} onChange={onChangeActive}>
       <option value=""></option>

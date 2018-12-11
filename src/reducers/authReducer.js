@@ -36,31 +36,32 @@ const initialState = {
 
 export const logInUser = (email, password) => dispatch => {
   dispatch(loadingSignIn(true));
-  return setTimeout(() => request({ url:'/auth/sign_in', method: 'POST', data: { email, password }})
+  return setTimeout(() => request({url: '/auth/sign_in', method: 'POST', data: {email, password}})
     .then(response => {
       dispatch(loadingSignIn(false));
-      if (response.data) {
+      if (response.data.token) {
         STORAGE.set("TOKEN", response.data && response.data.token);
         dispatch(changeToken(STORAGE.get("TOKEN")));
         dispatch(changeEmail(''));
         dispatch(changePassword(''));
-        dispatch(changeShowName(response.data.name));
       }
     })
     .catch(error => {
-      dispatch(loadingSignIn(false));
-      switch (JSON.stringify(error.response.status)) {
-        case '401':
-          dispatch(changeEmailError(JSON.stringify(error.response.data.message)));
-          break;
-        case '402':
-          dispatch(changePasswordError(JSON.stringify(error.response.data.message)));
-          break;
-        default:
-          break;
+        dispatch(loadingSignIn(false));
+        switch (JSON.stringify(error.response.status)) {
+          case '401':
+            dispatch(changeEmailError(JSON.stringify(error.response.data.message)));
+            break;
+          case '402':
+            dispatch(changePasswordError(JSON.stringify(error.response.data.message)));
+            break;
+          default:
+            break;
+        }
+        throw(error);
       }
-      throw(error);
-    }),3000);
+    )
+  )
 };
 
 export const logOutUser = () => dispatch => {
@@ -77,9 +78,6 @@ export const isUserLogged = () => dispatch => {
       }
     })
     .catch(error => {
-      STORAGE.remove("TOKEN");
-      dispatch(changeToken(STORAGE.get("TOKEN")));
-      throw(error);
     });
 };
 
@@ -89,6 +87,7 @@ export const registerUser =(email, name, password) => dispatch => {
     .then(response => {
       if(response.data){
         dispatch(loadingReg(false));
+        dispatch(logInUser(email, password));
         dispatch(changeEmail(''));
         dispatch(changePassword(''));
       }

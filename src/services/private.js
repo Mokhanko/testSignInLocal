@@ -3,7 +3,7 @@ import {Redirect, withRouter, Route} from "react-router-dom";
 import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => ({
-  token:state.users.token
+  token: state.users.token
 });
 
 

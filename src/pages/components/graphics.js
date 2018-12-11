@@ -35,7 +35,7 @@ export default compose(
           label: props.label[a],
           fill: false,
           lineTension: 0.1,
-          backgroundColor: 'rgba(75,192,192, 1)',
+          backgroundColor: `rgba(${75+a},${192+a}, ${192+a}, 1)`,
           borderColor: 'rgba(75,192,192,1)',
           borderCapStyle: 'butt',
           borderDash: [],

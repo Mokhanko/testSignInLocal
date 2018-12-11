@@ -1,14 +1,20 @@
-import axios from 'axios';
+import axios from 'axios'
 import STORAGE from './localStore'
 
-const token = STORAGE.get('TOKEN')
-
 const authClient = axios.create({
-  baseURL: 'http://localhost:3001/api/v1',
-  headers: {
-    Authorization: `JWT ${token}`
-  }
+  baseURL: 'http://localhost:3001/api/v1'
 });
+
+authClient.interceptors.request.use(
+  (config) => {
+    const token = STORAGE.get('TOKEN');
+    if (token) config.headers.Authorization = `JWT ${token}`;
+    return config;
+  },
+  (error) => {
+    return Promise.reject (error);
+  }
+);
 
 const request = ({url, method = 'GET', data}) => {
   if(method === 'GET') {
